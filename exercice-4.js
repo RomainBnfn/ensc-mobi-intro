@@ -34,19 +34,6 @@ async function performExercise() {
             `${films.map(f => f.title).join(', ')} - ${planets.map(p => p.name).join(', ')}`
         );
     })
-    console.log('\n4 - ');
-    await Promise.all([
-        fetchSWAPIResults("people")
-            .then(people => people.sort((p1, p2) => p1.name.localeCompare(p2.name))),
-        fetchSWAPIResults("planets")
-    ]).then(([people, planets]) => {
-        console.log(people.map(p => ({name: p.name, homeworld: extractIdFromURL(p.homeworld)})));
-        console.log(planets.map(p => ({ name: p.name, id: p.id })))
-        people.forEach(({name, homeworld, eye_color}) => {
-            const correspondingPlanet = planets.find(planet => planet.id === extractIdFromURL(homeworld));
-            console.log(`${name} - ${correspondingPlanet?.name} - ${eye_color}`);
-        })
-    });
 }
 
 performExercise();
